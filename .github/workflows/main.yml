@@ -20,8 +20,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ligma  # Navigate to the bot directory
-            git pull origin main  # Pull latest changes
-            npm install  # Install dependencies if needed
-            pm2 restart LigmaBot --watch  # Restart bot with watch mode enabled
-            pm2 save  # Save PM2 process state
+            cd /home/ligma
+            git reset --hard
+            git pull origin main
+            npm install
+            pm2 restart LigmaBot --watch
+            pm2 save
