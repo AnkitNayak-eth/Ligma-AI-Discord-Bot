@@ -28,7 +28,7 @@ client.on("messageCreate", async (message) => {
 
   const senderName = message.author.username;
 
-  const prompt = `${messageWithoutLigma} (Respond with savage Gen Z roast in maximum 5 lines, maximum sarcasm, and maximum roast energy. Be harsh, offensive, and meme-style. After roasting, always give the correct answer.)`;
+  const prompt = `${messageWithoutLigma} (Respond with savage Gen Z roast in maximum 5 lines, maximum sarcasm, and maximum roast energy. Be harsh, offensive, and meme-style. After roasting, answer.)`;
 
   try {
     const response = await axios.get(
