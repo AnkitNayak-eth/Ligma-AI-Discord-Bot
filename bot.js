@@ -20,8 +20,8 @@ client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
   if (message.content.toLowerCase() === "/help") {
-    const helpMessage = `This bot responds with savage Gen Z roasts and answers to your queries. It is powered by Llama 3.3 70B. Created by ankit.eth (Discord username). You can reach out to me here: [ankit.eth](https://discord.com/users/492673876472627200)`;
-    return message.reply(helpMessage);
+    const helpMessage = `This bot responds with savage Gen Z roasts and answers to your queries if it contains "ligma". It is powered by Llama 3.3 70B. Created by [ankit.eth](https://discord.com/users/492673876472627200)`;
+    return message.reply(helpMessage, { embed: null });
   }
 
   if (!message.content.toLowerCase().includes("ligma")) return;
