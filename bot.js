@@ -10,7 +10,7 @@ const client = new Client({
   ],
 });
 
-const LLAMA_API_URL = process.env.LLAMA_API_URL;
+const API_URL = process.env.API_URL;
 
 client.once("ready", () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
@@ -32,7 +32,7 @@ client.on("messageCreate", async (message) => {
 
   try {
     const response = await axios.get(
-      LLAMA_API_URL + encodeURIComponent(prompt)
+      API_URL + encodeURIComponent(prompt)
     );
     const botReply =
       response.data.message || "Your internet must be on a coffee break. It’s taking forever to load. ☕";
