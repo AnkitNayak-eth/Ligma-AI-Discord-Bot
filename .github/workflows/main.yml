@@ -1,0 +1,27 @@
+name: Deploy LigmaBot to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main  # Change this if you're using a different branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ligma  # Navigate to the bot directory
+            git pull origin main  # Pull latest changes
+            npm install  # Install dependencies if needed
+            pm2 restart LigmaBot --watch  # Restart bot with watch mode enabled
+            pm2 save  # Save PM2 process state
