@@ -22,10 +22,10 @@ Want to add LigmaBot to your server? Click the link below:
 
 
 # 🛠 Tech Stack
-Node.js – The backend brain 🧠
-Discord.js – For bot interactions 🤖
-Axios – To fetch roasts from the Llama-3.2-3B API 🔥
-Dotenv – Keeps API keys safe 🛡
+* Node.js – The backend brain 🧠
+* Discord.js – For bot interactions 🤖
+* Axios – To fetch roasts from the by 3.3 70B API 🔥
+* Dotenv – Keeps API keys safe 🛡
 
 # 🎉 Contributing
 Want to improve LigmaBot? Feel free to fork the repo, make changes, and submit a PR!
@@ -33,4 +33,4 @@ Want to improve LigmaBot? Feel free to fork the repo, make changes, and submit a
 # 📜 License
 🔓 Open-source under MIT License. Do whatever you want, but don’t blame me for broken friendships. 😂
 
-🚀 Star this repo if your Wi-Fi isn't lagging! ⭐
+# ⭐ Star this repo if your Wi-Fi isn't lagging! ⭐
