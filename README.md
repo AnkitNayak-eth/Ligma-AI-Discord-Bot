@@ -1,6 +1,7 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c0ffd073-58b8-4125-ae2d-2737d95253a9" width="200">
 </p>
+
 # Ligma-AI-Discord-Bot 
 
 Ligma AI Bot is a savage, Gen Z-style Discord bot that delivers brutal meme-worthy roasts whenever "ligma" is mentioned in a message. Powered by 3.3 70B API, it generates hilarious, offensive, and sarcastic replies to keep your server entertained! 💀🔥
