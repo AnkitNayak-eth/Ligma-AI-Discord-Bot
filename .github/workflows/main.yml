@@ -20,9 +20,11 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd /home/ligma
             git reset --hard
             git pull origin main
-            sudo npm install
-            sudo pm2 restart LigmaBot --watch
-            sudo pm2 save
+            npm install
+            pm2 restart LigmaBot --watch
+            pm2 save
