@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c0ffd073-58b8-4125-ae2d-2737d95253a9" width="200">
+  <img src="https://github.com/user-attachments/assets/b469b5b6-d931-40a1-8289-8312c82e0fc4" width="1000">
 </p>
 
 # Ligma-AI-Discord-Bot 
