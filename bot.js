@@ -13,15 +13,12 @@ const client = new Client({
 const API_URL = process.env.API_URL;
 
 client.once("ready", async () => {
-  console.log(`✅ Logged in as ${client.user.tag}`);
-
-  // Register the /help command globally
   await client.application.commands.create({
-    name: 'help',
-    description: 'Get information about this bot',
+    name: "help",
+    description: "Get information about this bot",
   });
 
-  console.log('Help command registered globally!');
+  console.log("Help command registered globally!");
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -29,13 +26,12 @@ client.on("interactionCreate", async (interaction) => {
 
   const { commandName } = interaction;
 
-  if (commandName === 'help') {
+  if (commandName === "help") {
     const helpMessage = `This bot responds with savage Gen Z roasts and answers to your queries if it contains "ligma". It is powered by Llama 3.3 70B. Created by [ankit.eth](https://discord.com/users/492673876472627200)`;
 
-    // Respond to the slash command with suppressing embeds
     await interaction.reply({
       content: helpMessage,
-      suppressEmbeds: true, // Ensure no embeds are shown
+      suppressEmbeds: true,
     });
   }
 });
@@ -43,7 +39,6 @@ client.on("interactionCreate", async (interaction) => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
-  // Regular message handler (responding to "ligma")
   if (!message.content.toLowerCase().includes("ligma")) return;
 
   const messageWithoutLigma = message.content
@@ -58,11 +53,14 @@ client.on("messageCreate", async (message) => {
   try {
     const response = await axios.get(API_URL + encodeURIComponent(prompt));
     const botReply =
-      response.data.message || "Your internet must be on a coffee break. It’s taking forever to load. ☕";
+      response.data.message ||
+      "Your internet must be on a coffee break. It’s taking forever to load. ☕";
     message.reply(`${senderName}, ${botReply}`);
   } catch (error) {
     console.error("Error fetching from Llama API:", error);
-    message.reply("Ligma servers are down. Guess you got no friends to blame. 💀");
+    message.reply(
+      "Ligma servers are down. Guess you got no friends to blame. 💀"
+    );
   }
 });
 
