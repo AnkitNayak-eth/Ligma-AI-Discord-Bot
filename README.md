@@ -1,20 +1,25 @@
 # Ligma-AI-Discord-Bot
 
-Ligma AI Bot is a savage, Gen Z-style Discord bot that delivers brutal meme-worthy roasts whenever "ligma" is mentioned in a message. Powered by the Llama-3.2-3B API, it generates hilarious, offensive, and sarcastic replies to keep your server entertained! 💀🔥
+Ligma AI Bot is a savage, Gen Z-style Discord bot that delivers brutal meme-worthy roasts whenever "ligma" is mentioned in a message. Powered by 3.3 70B API, it generates hilarious, offensive, and sarcastic replies to keep your server entertained! 💀🔥
+
+# 🔗 Invite LigmaBot  
+Want to add LigmaBot to your server? Click the link below:  
+## 👉 [**Invite LigmaBot**](https://discord.com/oauth2/authorize?client_id=1336267469295325234)  
 
 # 🚀 Features
-✅ Savage Gen Z Roasts – Roasts so harsh, even your Wi-Fi will disconnect.
-✅ Meme-Style Insults – Inspired by internet culture, TikTok humor, and brutal sarcasm.
-✅ API-Powered Responses – Uses the Llama-3.2-3B API for maximum creativity.
-✅ Randomized Fallbacks – Even if the API fails, users get roasted!
-✅ Error Handling & Retry Logic – Smart API requests with auto-retries.
+* ✅ Savage Gen Z Roasts – Roasts so harsh, even your Wi-Fi will disconnect.
+* ✅ Meme-Style Insults – Inspired by internet culture, TikTok humor, and brutal sarcasm.
+* ✅ API-Powered Responses – Uses the Llama-3.2-3B API for maximum creativity.
+* ✅ Randomized Fallbacks – Even if the API fails, users get roasted!
+* ✅ Error Handling & Retry Logic – Smart API requests with auto-retries.
 
 # 🤖 Commands & Usage
-No commands needed! Just type anything with "ligma" in your Discord server, and LigmaBot will respond with a brutal roast.
+* /help - Displays bot information and usage details.
+* Just type anything with "ligma" in your Discord server, and LigmaBot will respond with a brutal roast.
 
 # 📌 Example:
-👤 User: "What’s ligma?"
-🤖 LigmaBot: "Ligma is the reason your dad left. Now go touch grass. 🌱💀"
+![image](https://github.com/user-attachments/assets/80816626-c693-4083-ae5d-cfc5ced60ca1)
+
 
 # 🛠 Tech Stack
 Node.js – The backend brain 🧠
