@@ -43,19 +43,17 @@ client.once("ready", async () => {
             .setRequired(false)
             .addChoices(
               { name: "General", value: "memes" },
-              { name: "Tech", value: "techmemes" },
-              { name: "Gaming", value: "gamingmemes" },
-              { name: "Programming", value: "ProgrammerHumor" },
-              { name: "AI", value: "AImemes" },
-              { name: "Crypto", value: "cryptomemes" },
-              { name: "Dark Humor", value: "dankmemes" },
-              { name: "Wholesome", value: "wholesomememes" },
-              { name: "Anime", value: "Animemes" },
-              { name: "Cats", value: "catmemes" },
-              { name: "Dogs", value: "dogmemes" },
-              { name: "History", value: "HistoryMemes" },
-              { name: "Science", value: "sciencememes" },
-              { name: "Indian", value: "IndianDankMemes" }
+              { name: "Tech", value: "tech" },
+              { name: "Gaming", value: "gaming" },
+              { name: "Programming", value: "programming" },
+              { name: "AI", value: "ai" },
+              { name: "Crypto", value: "crypto" },
+              { name: "Dark Humor", value: "dark" },
+              { name: "Dank", value: "dank" },
+              { name: "Anime", value: "anime" },
+              { name: "Science", value: "science" },
+              { name: "Cursed", value: "cursed" },
+              { name: "Developer", value: "developer" }
             )
         ),
     ];
@@ -71,7 +69,8 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "help") {
       await interaction.reply({
-        content: `**🤖 Ligma Bot Help Menu**  
+        content: `
+        **🤖 Ligma Bot Help Menu**  
 
 This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun meme-related features.  
 
@@ -81,47 +80,39 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
 
 📜 **Slash Commands:**  
 - \`/help\` – Displays this menu.  
-- \`/meme\` – Fetches a random meme from Reddit. Supports categories like tech, gaming, programming, AI, crypto, etc.  
+- \`/meme\` – Fetches a random meme from various categories like tech, gaming, programming, AI, crypto, dark humor, etc.  
 
 🛠 **Created by:** <@492673876472627200>.`,
         ephemeral: false,
-        allowed_mentions: { parse: [] }, // Prevents auto-pinging
+        allowed_mentions: { parse: [] },
       });
       return;
     }
 
     if (interaction.commandName === "meme") {
       await interaction.deferReply();
-    
+
       const category = interaction.options.getString("category") || "memes";
-      const redditURL = `https://www.reddit.com/r/${category}/top.json?limit=50&t=day`;
-    
+      const apiURL = `https://meme-api.com/gimme/${category}`;
+
       try {
-        const response = await fetch(redditURL);
+        const response = await fetch(apiURL);
         const data = await response.json();
-    
-        const posts = data.data.children
-          .filter((post) => !post.data.over_18 && post.data.url_overridden_by_dest)
-          .sort((a, b) => b.data.ups - a.data.ups); // Sort by upvotes
-    
-        if (posts.length === 0) {
-          await interaction.editReply("Couldn't find any top memes. Try again later! 😢");
+
+        if (!data.url || data.nsfw) {
+          await interaction.editReply("Couldn't find a good meme. Try again later! 😢");
           return;
         }
-    
-        const topMemes = posts.slice(0, 5);
-        const randomMeme = topMemes[Math.floor(Math.random() * topMemes.length)].data;
-    
+
         await interaction.editReply({
-          content: `**${randomMeme.title}**`,
-          embeds: [{ image: { url: randomMeme.url_overridden_by_dest } }],
+          content: `**${data.title}**\n(Source: r/${data.subreddit})`,
+          embeds: [{ image: { url: data.url } }],
         });
       } catch (error) {
         console.error("Error fetching meme:", error);
-        await interaction.editReply("Failed to fetch a meme. Reddit might be down! 🚨");
+        await interaction.editReply("Failed to fetch a meme. Meme API might be down! 🚨");
       }
     }
-    
   }
 
   if (!interaction.isMessageContextMenuCommand()) return;
@@ -131,41 +122,39 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
 
   if (interaction.commandName === "Roast this message") {
     await interaction.deferReply();
-  
+
     const prompt = `Roast ${targetUser.username} based on their message: "${message.content}". Use a Gen Z meme style with max sarcasm, personal insults, and pure savage energy. Keep it under 5 lines.`;
-  
+
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const roastReply =
         response.data.message?.split("\n").slice(0, 5).join("\n") ||
         "Even my AI is struggling to find words for how mid this is. 💀";
-  
+
       await interaction.editReply(`${targetUser.username}, ${roastReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
       await interaction.editReply("Ligma servers are down. Try again later. 💀");
     }
   }
-  
 
   if (interaction.commandName === "Praise this message") {
     await interaction.deferReply();
-  
+
     const prompt = `Praise ${targetUser.username} based on their message: "${message.content}". Make them feel appreciated and loved. Keep it under 5 lines.`;
-  
+
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const praiseReply =
         response.data.message?.split("\n").slice(0, 5).join("\n") ||
         "You're honestly amazing, no AI-generated text needed for that. 🌟";
-  
+
       await interaction.editReply(`${targetUser.username}, ${praiseReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
       await interaction.editReply("Praise servers are down. But just know, you're awesome. 💖");
     }
   }
-  
 });
 
 client.login(process.env.DISCORD_TOKEN);
