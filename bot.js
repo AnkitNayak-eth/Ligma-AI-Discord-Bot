@@ -71,23 +71,27 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "help") {
       await interaction.reply({
-        content: `**🤖 Ligma Bot Help Menu**  
-    This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun meme-related features. It includes:  
+        content: `**🤖 Ligma Bot - Help Menu**  
+    > **This bot delivers savage Gen Z roasts, witty comebacks, and meme-related fun.**  
     
-    🔥 **Auto Roast** – If your message contains "ligma", expect a comeback.  
-    🎭 **Roast/Praise Commands** – Right-click a message → Apps → "Roast this message" or "Praise this message".  
-    📜 **Slash Commands:**  
-    - \`/help\` – Displays this menu.  
-    - \`/meme\` – Fetches a random meme from Reddit.  
-      - Supports categories like tech, gaming, programming, AI, crypto, etc.  
-    🛠 **Created by:** [ankit.eth](https://discord.com/users/492673876472627200)  
+    🛠 **Created by:** <@492673876472627200>  
     
-    For issues, ping <@492673876472627200>. Have fun roasting! 😈`,
-        ephemeral: true,
+    ### 🔥 **Features:**  
+    - **Auto Roast:** If your message contains "ligma", expect a comeback.  
+    - **Roast/Praise Commands:** Right-click a message → Apps → "Roast this message" or "Praise this message".  
+    
+    ### 📜 **Slash Commands:**  
+    - \`/help\` → Displays this menu.  
+    - \`/meme\` → Fetches a random meme from Reddit.  
+      - **Categories:** Tech, Gaming, Programming, AI, Crypto, Dark Humor, and more.  
+    
+    > Have fun roasting! 😈`,
+        ephemeral: false,
         allowed_mentions: { parse: [] },
         flags: 1 << 2,
       });
     }
+    
     
 
     if (interaction.commandName === "meme") {
