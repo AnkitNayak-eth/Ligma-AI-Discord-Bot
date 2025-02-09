@@ -54,8 +54,7 @@ client.once("ready", async () => {
               { name: "Science", value: "sciencememes" }, // r/sciencememes
               { name: "Cursed", value: "cursedcomments" }, // r/cursedcomments
               { name: "Developer", value: "programminghorror" } // r/programminghorror
-            );
-            
+            )
         ),
     ];
 
