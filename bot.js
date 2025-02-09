@@ -71,25 +71,24 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "help") {
       await interaction.reply({
-        content: `
-    **🤖 Ligma Bot Help Menu**
+        content: `**🤖 Ligma Bot Help Menu**  
 
-This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun meme-related features. It includes:
+This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun meme-related features.  
 
-🔥 **Auto Roast** – If your message contains "ligma", expect a comeback.
+🔥 **Auto Roast** – If your message contains "ligma", expect a comeback.  
 
-🎭 **Roast/Praise Commands** – Right-click a message → Apps → "Roast this message" or "Praise this message".
+🎭 **Roast/Praise Commands** – Right-click a message → Apps → "Roast this message" or "Praise this message".  
 
-📜 **Slash Commands:**
-- `/help` – Displays this menu.
-- `/meme` – Fetches a random meme from Reddit.
-- Supports categories like tech, gaming, programming, AI, crypto, etc.
+📜 **Slash Commands:**  
+- \`/help\` – Displays this menu.  
+- \`/meme\` – Fetches a random meme from Reddit.  
+  - Supports categories like tech, gaming, programming, AI, crypto, etc.  
 
 🛠 **Created by:** <@492673876472627200>.`,
         ephemeral: false,
-        allowed_mentions: { parse: [] },
-        flags: 1 << 2,
+        allowed_mentions: { parse: [] }, // Prevents auto-pinging
       });
+      return;
     }
 
     if (interaction.commandName === "meme") {
@@ -104,11 +103,9 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
         const posts = data.data.children
           .filter((post) => !post.data.over_18)
           .sort((a, b) => b.data.ups - a.data.ups);
+
         if (posts.length === 0) {
-          await interaction.followUp(
-            "Couldn't find any memes. Try again later! 😢"
-          );
-          return;
+          return interaction.followUp("Couldn't find any memes. Try again later! 😢");
         }
 
         const topMemes = posts.slice(0, 10);
@@ -122,10 +119,7 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
             : null);
 
         if (!imageUrl) {
-          await interaction.followUp(
-            "Couldn't fetch a valid meme image. Try again later! 😢"
-          );
-          return;
+          return interaction.followUp("Couldn't fetch a valid meme image. Try again later! 😢");
         }
 
         await interaction.followUp({
@@ -134,9 +128,7 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
         });
       } catch (error) {
         console.error("Error fetching meme:", error);
-        await interaction.followUp(
-          "Failed to fetch a meme. Reddit might be down! 🚨"
-        );
+        await interaction.followUp("Failed to fetch a meme. Reddit might be down! 🚨");
       }
       return;
     }
@@ -179,9 +171,7 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
       await interaction.followUp(`${targetUser.username}, ${praiseReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
-      await interaction.followUp(
-        "Praise servers are down. But just know, you're awesome. 💖"
-      );
+      await interaction.followUp("Praise servers are down. But just know, you're awesome. 💖");
     }
   }
 });
