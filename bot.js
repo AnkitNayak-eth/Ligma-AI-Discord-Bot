@@ -81,8 +81,7 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
 
 📜 **Slash Commands:**  
 - \`/help\` – Displays this menu.  
-- \`/meme\` – Fetches a random meme from Reddit.  
-  - Supports categories like tech, gaming, programming, AI, crypto, etc.  
+- \`/meme\` – Fetches a random meme from Reddit. Supports categories like tech, gaming, programming, AI, crypto, etc.  
 
 🛠 **Created by:** <@492673876472627200>.`,
         ephemeral: false,
@@ -93,45 +92,36 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
 
     if (interaction.commandName === "meme") {
       await interaction.deferReply();
-
+    
       const category = interaction.options.getString("category") || "memes";
-      const redditURL = `https://www.reddit.com/r/${category}/hot.json?limit=50`;
-
+      const redditURL = `https://www.reddit.com/r/${category}/top.json?limit=50&t=day`;
+    
       try {
         const response = await fetch(redditURL);
         const data = await response.json();
+    
         const posts = data.data.children
-          .filter((post) => !post.data.over_18)
-          .sort((a, b) => b.data.ups - a.data.ups);
-
+          .filter((post) => !post.data.over_18 && post.data.url_overridden_by_dest)
+          .sort((a, b) => b.data.ups - a.data.ups); // Sort by upvotes
+    
         if (posts.length === 0) {
-          return interaction.followUp("Couldn't find any memes. Try again later! 😢");
+          await interaction.editReply("Couldn't find any top memes. Try again later! 😢");
+          return;
         }
-
-        const topMemes = posts.slice(0, 10);
-        const randomMeme =
-          topMemes[Math.floor(Math.random() * topMemes.length)].data;
-
-        const imageUrl =
-          randomMeme.url_overridden_by_dest ||
-          (randomMeme.preview
-            ? randomMeme.preview.images[0].source.url.replace("&amp;", "&")
-            : null);
-
-        if (!imageUrl) {
-          return interaction.followUp("Couldn't fetch a valid meme image. Try again later! 😢");
-        }
-
-        await interaction.followUp({
+    
+        const topMemes = posts.slice(0, 5);
+        const randomMeme = topMemes[Math.floor(Math.random() * topMemes.length)].data;
+    
+        await interaction.editReply({
           content: `**${randomMeme.title}**`,
-          embeds: [{ image: { url: imageUrl } }],
+          embeds: [{ image: { url: randomMeme.url_overridden_by_dest } }],
         });
       } catch (error) {
         console.error("Error fetching meme:", error);
-        await interaction.followUp("Failed to fetch a meme. Reddit might be down! 🚨");
+        await interaction.editReply("Failed to fetch a meme. Reddit might be down! 🚨");
       }
-      return;
     }
+    
   }
 
   if (!interaction.isMessageContextMenuCommand()) return;
@@ -141,39 +131,41 @@ This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun me
 
   if (interaction.commandName === "Roast this message") {
     await interaction.deferReply();
-
+  
     const prompt = `Roast ${targetUser.username} based on their message: "${message.content}". Use a Gen Z meme style with max sarcasm, personal insults, and pure savage energy. Keep it under 5 lines.`;
-
+  
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const roastReply =
         response.data.message?.split("\n").slice(0, 5).join("\n") ||
         "Even my AI is struggling to find words for how mid this is. 💀";
-
-      await interaction.followUp(`${targetUser.username}, ${roastReply}`);
+  
+      await interaction.editReply(`${targetUser.username}, ${roastReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
-      await interaction.followUp("Ligma servers are down. Try again later. 💀");
+      await interaction.editReply("Ligma servers are down. Try again later. 💀");
     }
   }
+  
 
   if (interaction.commandName === "Praise this message") {
     await interaction.deferReply();
-
+  
     const prompt = `Praise ${targetUser.username} based on their message: "${message.content}". Make them feel appreciated and loved. Keep it under 5 lines.`;
-
+  
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const praiseReply =
         response.data.message?.split("\n").slice(0, 5).join("\n") ||
         "You're honestly amazing, no AI-generated text needed for that. 🌟";
-
-      await interaction.followUp(`${targetUser.username}, ${praiseReply}`);
+  
+      await interaction.editReply(`${targetUser.username}, ${praiseReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
-      await interaction.followUp("Praise servers are down. But just know, you're awesome. 💖");
+      await interaction.editReply("Praise servers are down. But just know, you're awesome. 💖");
     }
   }
+  
 });
 
 client.login(process.env.DISCORD_TOKEN);
