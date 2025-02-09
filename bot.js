@@ -71,50 +71,50 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "help") {
       await interaction.reply({
-        content: `**🤖 Ligma Bot - Help Menu**  
-    > **This bot delivers savage Gen Z roasts, witty comebacks, and meme-related fun.**  
-    
-    🛠 **Created by:** <@492673876472627200>  
-    
-    ### 🔥 **Features:**  
-    - **Auto Roast:** If your message contains "ligma", expect a comeback.  
-    - **Roast/Praise Commands:** Right-click a message → Apps → "Roast this message" or "Praise this message".  
-    
-    ### 📜 **Slash Commands:**  
-    - \`/help\` → Displays this menu.  
-    - \`/meme\` → Fetches a random meme from Reddit.  
-      - **Categories:** Tech, Gaming, Programming, AI, Crypto, Dark Humor, and more.  
-    
-    > Have fun roasting! 😈`,
+        content: `
+    **🤖 Ligma Bot Help Menu**
+
+This bot is designed to deliver savage Gen Z roasts, witty comebacks, and fun meme-related features. It includes:
+
+🔥 **Auto Roast** – If your message contains "ligma", expect a comeback.
+
+🎭 **Roast/Praise Commands** – Right-click a message → Apps → "Roast this message" or "Praise this message".
+
+📜 **Slash Commands:**
+- `/help` – Displays this menu.
+- `/meme` – Fetches a random meme from Reddit.
+- Supports categories like tech, gaming, programming, AI, crypto, etc.
+
+🛠 **Created by:** <@492673876472627200>.`,
         ephemeral: false,
         allowed_mentions: { parse: [] },
         flags: 1 << 2,
       });
     }
-    
-    
 
     if (interaction.commandName === "meme") {
-      await interaction.deferReply(); 
+      await interaction.deferReply();
 
-      const category = interaction.options.getString("category") || "memes"; 
+      const category = interaction.options.getString("category") || "memes";
       const redditURL = `https://www.reddit.com/r/${category}/hot.json?limit=50`;
 
       try {
         const response = await fetch(redditURL);
         const data = await response.json();
         const posts = data.data.children
-          .filter((post) => !post.data.over_18) 
-          .sort((a, b) => b.data.ups - a.data.ups); 
+          .filter((post) => !post.data.over_18)
+          .sort((a, b) => b.data.ups - a.data.ups);
         if (posts.length === 0) {
-          await interaction.followUp("Couldn't find any memes. Try again later! 😢");
+          await interaction.followUp(
+            "Couldn't find any memes. Try again later! 😢"
+          );
           return;
         }
 
-        const topMemes = posts.slice(0, 10); 
-        const randomMeme = topMemes[Math.floor(Math.random() * topMemes.length)].data;
+        const topMemes = posts.slice(0, 10);
+        const randomMeme =
+          topMemes[Math.floor(Math.random() * topMemes.length)].data;
 
-        
         const imageUrl =
           randomMeme.url_overridden_by_dest ||
           (randomMeme.preview
@@ -122,7 +122,9 @@ client.on("interactionCreate", async (interaction) => {
             : null);
 
         if (!imageUrl) {
-          await interaction.followUp("Couldn't fetch a valid meme image. Try again later! 😢");
+          await interaction.followUp(
+            "Couldn't fetch a valid meme image. Try again later! 😢"
+          );
           return;
         }
 
@@ -132,7 +134,9 @@ client.on("interactionCreate", async (interaction) => {
         });
       } catch (error) {
         console.error("Error fetching meme:", error);
-        await interaction.followUp("Failed to fetch a meme. Reddit might be down! 🚨");
+        await interaction.followUp(
+          "Failed to fetch a meme. Reddit might be down! 🚨"
+        );
       }
       return;
     }
@@ -144,14 +148,15 @@ client.on("interactionCreate", async (interaction) => {
   const targetUser = message.author;
 
   if (interaction.commandName === "Roast this message") {
-    await interaction.deferReply(); 
+    await interaction.deferReply();
 
     const prompt = `Roast ${targetUser.username} based on their message: "${message.content}". Use a Gen Z meme style with max sarcasm, personal insults, and pure savage energy. Keep it under 5 lines.`;
 
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const roastReply =
-        response.data.message?.split("\n").slice(0, 5).join("\n") || "Even my AI is struggling to find words for how mid this is. 💀";
+        response.data.message?.split("\n").slice(0, 5).join("\n") ||
+        "Even my AI is struggling to find words for how mid this is. 💀";
 
       await interaction.followUp(`${targetUser.username}, ${roastReply}`);
     } catch (error) {
@@ -161,19 +166,22 @@ client.on("interactionCreate", async (interaction) => {
   }
 
   if (interaction.commandName === "Praise this message") {
-    await interaction.deferReply(); 
+    await interaction.deferReply();
 
     const prompt = `Praise ${targetUser.username} based on their message: "${message.content}". Make them feel appreciated and loved. Keep it under 5 lines.`;
 
     try {
       const response = await axios.get(API_URL + encodeURIComponent(prompt));
       const praiseReply =
-        response.data.message?.split("\n").slice(0, 5).join("\n") || "You're honestly amazing, no AI-generated text needed for that. 🌟";
+        response.data.message?.split("\n").slice(0, 5).join("\n") ||
+        "You're honestly amazing, no AI-generated text needed for that. 🌟";
 
       await interaction.followUp(`${targetUser.username}, ${praiseReply}`);
     } catch (error) {
       console.error("Error fetching from Llama API:", error);
-      await interaction.followUp("Praise servers are down. But just know, you're awesome. 💖");
+      await interaction.followUp(
+        "Praise servers are down. But just know, you're awesome. 💖"
+      );
     }
   }
 });
