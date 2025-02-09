@@ -42,19 +42,20 @@ client.once("ready", async () => {
             .setDescription("Choose a meme category")
             .setRequired(false)
             .addChoices(
-              { name: "General", value: "memes" },
-              { name: "Tech", value: "tech" },
-              { name: "Gaming", value: "gaming" },
-              { name: "Programming", value: "programming" },
-              { name: "AI", value: "ai" },
-              { name: "Crypto", value: "crypto" },
-              { name: "Dark Humor", value: "dark" },
-              { name: "Dank", value: "dank" },
-              { name: "Anime", value: "anime" },
-              { name: "Science", value: "science" },
-              { name: "Cursed", value: "cursed" },
-              { name: "Developer", value: "developer" }
-            )
+              { name: "General", value: "memes" }, // r/memes
+              { name: "Tech", value: "techmemes" }, // r/techmemes
+              { name: "Gaming", value: "gamingmemes" }, // r/gamingmemes
+              { name: "Programming", value: "ProgrammerHumor" }, // r/ProgrammerHumor
+              { name: "AI", value: "AImemes" }, // r/AImemes
+              { name: "Crypto", value: "cryptomemes" }, // r/cryptomemes
+              { name: "Dark Humor", value: "dankmemes" }, // r/dankmemes
+              { name: "Dank", value: "dankmemes" }, // r/dankmemes (same as dark humor)
+              { name: "Anime", value: "Animemes" }, // r/Animemes
+              { name: "Science", value: "sciencememes" }, // r/sciencememes
+              { name: "Cursed", value: "cursedcomments" }, // r/cursedcomments
+              { name: "Developer", value: "programminghorror" } // r/programminghorror
+            );
+            
         ),
     ];
 
