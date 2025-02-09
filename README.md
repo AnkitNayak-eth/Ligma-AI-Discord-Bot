@@ -8,7 +8,7 @@ Ligma AI Bot is a savage, Gen Z-style Discord bot that delivers brutal meme-wort
 
 # 🔗 Invite LigmaBot  
 Want to add LigmaBot to your server? Click the link below:  
-## 👉 [**Invite LigmaBot**](https://discord.com/oauth2/authorize?client_id=1336267469295325234)  
+## 👉 [**Invite LigmaBot**](https://discord.com/oauth2/authorize?client_id=1336267469295325234&permissions=2684611648&integration_type=0&scope=bot+applications.commands)  
 
 # 🚀 Features
 * ✅ Savage Gen Z Roasts – Roasts so harsh, even your Wi-Fi will disconnect.
