@@ -42,18 +42,18 @@ client.once("ready", async () => {
             .setDescription("Choose a meme category")
             .setRequired(false)
             .addChoices(
-              { name: "General", value: "memes" }, // r/memes
-              { name: "Tech", value: "techmemes" }, // r/techmemes
-              { name: "Gaming", value: "gamingmemes" }, // r/gamingmemes
-              { name: "Programming", value: "ProgrammerHumor" }, // r/ProgrammerHumor
-              { name: "AI", value: "AImemes" }, // r/AImemes
-              { name: "Crypto", value: "cryptomemes" }, // r/cryptomemes
-              { name: "Dark Humor", value: "dankmemes" }, // r/dankmemes
-              { name: "Dank", value: "dankmemes" }, // r/dankmemes (same as dark humor)
-              { name: "Anime", value: "Animemes" }, // r/Animemes
-              { name: "Science", value: "sciencememes" }, // r/sciencememes
-              { name: "Cursed", value: "cursedcomments" }, // r/cursedcomments
-              { name: "Developer", value: "programminghorror" } // r/programminghorror
+              { name: "General", value: "memes" },
+              { name: "Tech", value: "techmemes" },
+              { name: "Gaming", value: "gamingmemes" },
+              { name: "Programming", value: "ProgrammerHumor" },
+              { name: "AI", value: "AImemes" },
+              { name: "Crypto", value: "cryptomemes" },
+              { name: "Dark Humor", value: "dankmemes" },
+              { name: "Dank", value: "dankmemes" },
+              { name: "Anime", value: "Animemes" },
+              { name: "Science", value: "sciencememes" },
+              { name: "Cursed", value: "cursedcomments" },
+              { name: "Developer", value: "programminghorror" }
             )
         ),
     ];
@@ -64,6 +64,30 @@ client.once("ready", async () => {
     console.error("❌ Error registering commands:", error);
   }
 });
+
+client.on("messageCreate", async (message) => {
+  if (message.author.bot) return;
+
+  if (/ligma/i.test(message.content)) {
+   
+    await message.channel.sendTyping();
+
+    const prompt = `Roast ${message.author.username} based on their message: "${message.content}". Use Gen Z meme humor, sarcasm, and witty insults. Max 5 lines.`;
+
+    try {
+      const response = await axios.get(API_URL + encodeURIComponent(prompt));
+      const roastReply =
+        response.data.message?.split("\n").slice(0, 5).join("\n") ||
+        "Bro, even my AI circuits are short-circuiting trying to roast this. 💀";
+
+      await message.reply(roastReply);
+    } catch (error) {
+      console.error("Error fetching from Llama API:", error);
+      await message.reply("Ligma servers are down. No roasts today. 💀");
+    }
+  }
+});
+
 
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
